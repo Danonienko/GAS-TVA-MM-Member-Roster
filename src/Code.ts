@@ -20,19 +20,19 @@ function getEnlistedRankLockedUsername(e: GoogleAppsScript.Events.SheetsOnEdit):
     const range = e.range;
     const sheet = range.getSheet();
 
-    // Only run on the 'PUNISHMENTS' sheet
+    // Only trigger if edit was in the 'PUNISHMENTS' sheet
     if (sheet.getName() !== "PUNISHMENTS") return;
 
-    // Only single-cell edits
+    // Single-cell edit
     if (range.getNumRows() !== 1 || range.getNumColumns() !== 1) return;
 
     const row = range.getRow();
     const column = range.getColumn();
 
-    // Only care about edits in columns C-F
+    // In columns C-F
     if (column < 3 || column > 6) return;
 
-    // Only tirgger if column E is set to 'Enlisted'
+    // Column E is set to 'Enlisted'
     const rank = sheet.getRange(`E${row}`).getValue() as string;
     if (rank !== "Enlisted") return;
 
